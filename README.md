@@ -12,7 +12,6 @@ https://www.youtube.com/watch?v=0sRARv-8gqs
 ```
   1. eclipse 실행
   2. Run
-
 ```
 
 ## Story
