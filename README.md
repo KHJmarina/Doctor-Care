@@ -1,7 +1,7 @@
 # Doctor-Care
 100% 기여 개인 포트폴리오
 
-eclipse로 만든 프론트엔드 개발자 웹 포트폴리오입니다.
+eclipse로 만든 웹개발자 포트폴리오입니다.
 
 ## URL
 https://www.youtube.com/watch?v=0sRARv-8gqs
