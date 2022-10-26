@@ -10,20 +10,26 @@ https://www.youtube.com/watch?v=0sRARv-8gqs
 
 ##### 실행
 ```
-  1. VScode IDE 실행
-  2. F1 -> SFTP : List All 입력 후 연결
-  3. my-genomestory_test 폴더 선택
+  1. eclipse 실행
+  2. Run
 
 ```
 
 ## Story
 
-- 포트폴리오 + 이력서
-- vs code와 css, javascript를 사용했습니다.
-- bootscript 미디어쿼리
-- 반응형 웹페이지
-- zeplin 디자인을 바탕으로 front-end 작업 진행
+- JAVA/JSP 기반의 웹개발
+- oracleDB 활용, 쿼리작성, DB 설계
+- 웹서버 : Tomcat 활용
+- HTML, CSS, JavaScript, JQuery를 활용한 화면단 개발
+- spring framework 을 이용한 web application 개발
+- xml, json 형식의 API 추출/적용
+
+!! Spring framework를 활용한 MVC 웹 프로젝트
+- MyBatis 사용한 DB 접근
+- 회원/비회원 운영 시스템
+- 관리자 페이지 구현
+- ajax API 사용 ( openweather, 서울시 지하철 승하차 )
 
 
 ## Skill
-> VS code(html) + css + javascript
+> java, html, css, javascript, jquery
