@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.lec.projectS_medical.beans.ReservationDAO">
+	<select id="select"
+		resultType="com.lec.projectS_medical.beans.ReservationDTO">
+		SELECT res_uid, mb_uid, res_date resDate, 
+		res_name name, res_id id, res_gender gender, res_age age, res_phonenum phonenum,
+		res_q1 question1, res_q2 question2, res_q3 question3, res_other other
+		FROM DC_RESERVATION ORDER BY res_uid DESC
+	</select>
+	
+	
+	<insert id="insert" flushCache="true" 
+		parameterType="com.lec.projectS_medical.beans.ReservationDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="res_uid">
+		INSERT INTO DC_RESERVATION
+			(res_uid, mb_uid, res_date, res_name, res_id, res_gender, res_age, res_phonenum, res_q1, res_q2, res_q3, res_other)
+		VALUES
+			(reservation_seq.nextval, #{mb_uid}, #{resDate}, #{name}, #{id}, #{gender}, #{age}, #{phonenum}, #{question1}, #{question2}, #{question3}, #{other})
+	</insert>
+	
+	
+	<!-- public TestDTO testById(String id)   SQL_TEST_BY_MBID-->
+	<select id="resById" resultType="com.lec.projectS_medical.beans.ReservationDTO">
+		SELECT 
+			res_uid, mb_uid, res_date resDate, 
+			res_name name, res_id id, res_gender gender, res_age age, res_phonenum phonenum,
+			res_q1 question1, res_q2 question2, res_q3 question3, res_other other
+		FROM DC_RESERVATION
+		WHERE res_id=#{param1}
+	</select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+

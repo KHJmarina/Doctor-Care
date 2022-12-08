@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.projectS_medical.beans.BoardDAO">
+	<select id="select"
+		resultType="com.lec.projectS_medical.beans.BoardDTO">
+		SELECT wr_uid, wr_subject subject, wr_subtitle subtitle, wr_content content, 
+		wr_name name, wr_phonenum phonenum, wr_email email,
+		wr_viewcnt viewcnt, wr_regdate regDate, mb_uid FROM DC_BOARD ORDER BY wr_uid DESC
+	</select>
+	
+	<!-- view.do -->
+	<select id="selectById" resultType="com.lec.projectS_medical.beans.BoardDTO">
+		SELECT 
+			wr_uid, wr_subject subject, wr_subtitle subtitle, wr_content content, 
+			wr_name name, wr_phonenum phonenum, wr_email email,
+			wr_viewcnt viewcnt, wr_regdate regDate, mb_uid 
+		FROM DC_BOARD 
+		WHERE wr_uid=#{uid}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="incViewCnt" flushCache="true">
+		UPDATE DC_BOARD  
+		SET wr_viewcnt = wr_viewcnt + 1 
+		WHERE wr_uid = #{param1}
+	</update>
+	
+	<!-- 
+	<update id="update" flushCache="true" 
+		parameterType="com.lec.sts19_rest.beans.BWriteDTO">
+		UPDATE test_write 
+		SET wr_subject = #{subject}, wr_content = #{content} 
+		WHERE wr_id = #{id}
+	</update>
+	 -->
+
+	<update id="update" flushCache="true">
+		UPDATE DC_BOARD  
+		SET wr_subject = #{a.subject}, wr_content = #{a.content} 
+		WHERE wr_uid = #{param1}
+	</update>
+
+
+	
+	<delete id="deleteById" flushCache="true">
+		DELETE FROM DC_BOARD WHERE wr_uid = #{uid}
+	</delete>
+	
+	
+	<select id="searchBySubject" resultType="com.lec.projectS_medical.beans.BoardDTO">
+		<![CDATA[SELECT * FROM DC_BOARD WHERE uid < 10]]>
+	</select>
+	
+	
+	<!-- fromRow 부터 writePage 만큼 SELECT -->
+	<select id="selectByRow" resultType="com.lec.projectS_medical.beans.BoardDTO">
+		<![CDATA[
+		SELECT * FROM v_DC_BOARD_row
+		WHERE RNUM >= #{fromRow} AND RNUM < #{fromRow} + #{writePages}
+		]]>
+	</select>
+	
+	
+	<delete id="deleteItemsById" flushCache="true">
+		DELETE FROM DC_BOARD
+		WHERE wr_uid IN
+		<foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<insert id="insert" flushCache="true" 
+		parameterType="com.lec.projectS_medical.beans.BoardDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="wr_uid">
+		INSERT INTO DC_BOARD
+			(wr_uid, wr_subject, wr_subtitle, wr_content, wr_name, wr_phonenum, wr_email, wr_regdate, mb_uid)
+		VALUES
+			(board_seq.nextval, #{subject}, #{subtitle}, #{content}, #{name}, #{phonenum}, #{email}, SYSDATE, #{mb_uid})
+	</insert>
+
+
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

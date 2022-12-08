@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.projectS_medical.beans.TestDAO">
+	<select id="select"
+		resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			test_uid, mb_uid, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM DC_MEMBER m, DC_TEST t 
+		WHERE m.mb_uid = t.mb_uid
+	</select>
+	
+	
+	<!-- insert.do -->
+	<insert id="insert" flushCache="true" 
+		parameterType="com.lec.projectS_medical.beans.TestDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="test_uid">
+		INSERT INTO DC_TEST 
+			(test_uid, mb_uid, test_height, test_weight, test_sightR, test_sightL, 
+			test_hearing, test_bloodpress, test_BMI, test_BST, test_regdate) 
+		VALUES 
+			(test_seq.nextval, #{mb_uid}, #{height}, #{weight}, #{sightR}, #{sightL}, #{hearing}, #{bloodpress}, #{BMI}, #{BST}, SYSDATE)
+	</insert>
+	
+	
+	
+	
+	
+	
+	<!-- public TestDTO testById(String id)   SQL_TEST_BY_MBID-->
+	<select id="testById" resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			m.mb_name name, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM DC_MEMBER m, DC_TEST t
+		WHERE m.mb_uid = t.mb_uid AND m.mb_id = #{param1}
+	</select>
+	
+	
+
+	
+	<!-- public TestDTO testDiabetes()   SQL_TEST_DIABETES-->
+	<select id="testDiabetes" resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			test_uid, m.mb_name name, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM (SELECT mb_uid, mb_id, mb_name FROM DC_MEMBER) m, DC_TEST t 
+		WHERE t.test_BST > 125
+		AND m.mb_uid = t.mb_uid
+	</select>
+	
+	<select id="testDiabetesBefore" resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			test_uid, m.mb_name name, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM (SELECT mb_uid, mb_name FROM DC_MEMBER) m, DC_TEST t 
+		WHERE t.test_BST BETWEEN 100 AND 125
+		AND m.mb_uid IN (SELECT mb_uid FROM DC_TEST WHERE test_BST BETWEEN 100 AND 125)
+		AND m.mb_uid = t.mb_uid
+	</select>
+	
+	
+	<select id="testObesity" resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			test_uid, m.mb_name name, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM (SELECT mb_uid, mb_name FROM DC_MEMBER) m, DC_TEST t 
+		WHERE t.test_BMI > 25
+		AND m.mb_uid = t.mb_uid
+	</select>
+	
+	
+	<select id="testHighBP1" resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			test_uid, m.mb_name name, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM (SELECT mb_uid, mb_name FROM DC_MEMBER) m, DC_TEST t 
+		WHERE t.test_bloodpress BETWEEN 140 AND 159
+		AND m.mb_uid = t.mb_uid
+	</select>
+	
+	<select id="testHighBP2" resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			test_uid, m.mb_name name, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM (SELECT mb_uid, mb_name FROM DC_MEMBER) m, DC_TEST t 
+		WHERE t.test_bloodpress >= 160
+		AND m.mb_uid = t.mb_uid
+	</select>
+	
+	<select id="testHighBPBefore" resultType="com.lec.projectS_medical.beans.TestDTO">
+		SELECT 
+			test_uid, m.mb_name name, test_height height, test_weight weight, 
+			test_sightR sightR, test_sightL sightL, test_hearing hearing, 
+			test_bloodpress bloodpress, test_BMI BMI, test_BST BST, 
+			test_regdate regdate 
+		FROM (SELECT mb_uid, mb_name FROM DC_MEMBER) m, DC_TEST t 
+		WHERE t.test_bloodpress BETWEEN 120 AND 139
+		AND m.mb_uid = t.mb_uid
+	</select>
+	
+	
+	
+	
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

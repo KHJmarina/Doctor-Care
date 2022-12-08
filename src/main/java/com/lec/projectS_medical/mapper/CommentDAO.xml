@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.lec.projectS_medical.beans.CommentDAO">
+
+	<select id="select"
+		resultType="com.lec.projectS_medical.beans.CommentDTO">
+		SELECT cmt_uid, wr_uid, cmt_subject subject, cmt_content content, 
+		cmt_viewcnt viewcnt, cmt_regdate regDate, mb_uid FROM DC_COMMENT ORDER BY cmt_uid DESC
+	</select>
+
+	<insert id="insert" flushCache="true" 
+		parameterType="com.lec.projectS_medical.beans.CommentDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="cmt_uid">
+		INSERT INTO DC_COMMENT
+			(cmt_uid, wr_uid, cmt_subject, cmt_content, cmt_regdate, mb_uid)
+		VALUES
+			(board_seq.nextval, #{wr_uid}, #{subject}, #{content}, SYSDATE, #{mb_uid})
+	</insert>
+	
+	<!-- comment.do -->
+	<select id="selectById" resultType="com.lec.projectS_medical.beans.CommentDTO">
+		SELECT 
+			cmt_uid, wr_uid, cmt_subject subject, cmt_content content, 
+			cmt_viewcnt viewcnt, cmt_regdate regDate, mb_uid 
+		FROM DC_COMMENT 
+		WHERE cmt_uid=#{uid}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="incViewCnt" flushCache="true">
+		UPDATE DC_COMMENT  
+		SET cmt_viewcnt = cmt_viewcnt + 1 
+		WHERE cmt_uid = #{param1}
+	</update>
+	
+	
+	
+
+</mapper>
+
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.projectS_medical.beans.DoctorDAO">
+	<select id="select"
+		resultType="com.lec.projectS_medical.beans.DoctorDTO">
+		SELECT 
+			mb_uid, mb_id id, mb_pw pw, mb_name name,
+			mb_gender gender, mb_age age, mb_phonenum phonenum,
+			mb_address address, mb_email email, mb_regdate regdate 
+		FROM DC_MEMBER ORDER BY mb_uid DESC
+	</select>
+	
+	<!-- insert.do -->
+	<insert id="insert" flushCache="true" 
+		parameterType="com.lec.projectS_medical.beans.DoctorDTO"
+		keyProperty="uid" useGeneratedKeys="true" keyColumn="mb_uid">
+		INSERT INTO DC_MEMBER
+			(mb_uid, mb_id, mb_pw, mb_name, mb_gender, mb_age, mb_phonenum, mb_address, mb_email, mb_regdate)
+		VALUES
+			(doctor_seq.nextval, #{id} , #{pw}, #{name}, #{gender}, #{age}, #{phonenum}, #{address}, #{email}, SYSDATE)
+	</insert>
+	
+	<!-- login.do -->
+	<select id="login" resultType="com.lec.projectS_medical.beans.DoctorDTO">
+		SELECT 
+			mb_uid, mb_id id, mb_pw pw, mb_name name,
+			mb_gender gender, mb_age age, mb_phonenum phonenum,
+			mb_address address, mb_email email, mb_regdate regdate
+		FROM DC_MEMBER
+		WHERE mb_id=#{param1}
+	</select>
+	
+	<!-- update.do -->
+	<update id="update" flushCache="true">
+		UPDATE DC_MEMBER 
+		SET mb_pw = #{a.pw}, mb_name = #{a.name}, mb_gender = #{a.gender}, mb_age = #{a.age}, mb_phonenum = #{a.phonenum}, mb_address = #{a.address}, mb_email = #{a.email} 
+		WHERE mb_id = #{param1}
+	</update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
